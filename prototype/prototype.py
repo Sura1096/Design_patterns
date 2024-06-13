@@ -1,30 +1,38 @@
 from copy import deepcopy
 
 
-class Address:
-    def __init__(self, street, city, country):
-        self.street = street
-        self.city = city
-        self.country = country
+class CarPrototype:
+    def clone(self):
+        return deepcopy(self)
+
+
+class Car(CarPrototype):
+    def __init__(self, model, color, features):
+        self.model = model
+        self.color = color
+        self.features = features
 
     def __str__(self):
-        return f'{self.street}, {self.city}, {self.country}'
+        return f'Car(model={self.model}, color={self.color}, features={self.features})'
 
 
-class Person:
-    def __init__(self, name, address):
-        self.name = name
-        self.address = address
+# Create the base car model
+base_car = Car('Sedan', 'Red', ['Air Conditioning', 'Power Steering'])
 
-    def __str__(self):
-        return f'{self.name} lives at {self.address}'
+# Clone base car model
+car1 = base_car.clone()
+car1.color = 'Blue'
+car1.features.append('Sunroof')
 
+car2 = base_car.clone()
+car2.color = 'Green'
+car2.features.append('Leather Seats')
 
-if __name__ == '__main__':
-    john = Person('John', Address('123 London Road', 'London', 'UK'))
-    jane = deepcopy(john)
-    jane.name = 'Jane'
-    jane.address.street = '567 London Road'
-    print(john)
-    print()
-    print(jane)
+car3 = base_car.clone()
+car3.color = 'Black'
+car3.features.append('GPS Navigation')
+
+print(base_car)
+print(car1)
+print(car2)
+print(car3)
